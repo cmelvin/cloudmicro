@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.cloudmicro.microservices</groupId>
-	<artifactId>pub-service</artifactId>
+	<artifactId>generic-pub-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>pub-service</name>
+	<name>generic-pub-service</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
@@ -27,14 +27,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
