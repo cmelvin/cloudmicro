@@ -1,18 +1,11 @@
-package com.cloudmicro.microservices.pubservice;
+package com.cloudmicro.microservices.genericpubservice;
 
 
 
+public class DataBean {
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
 
-@Entity
-public class Data {
-
-    @Id
     private Long id;
-    @Column(name="xml_data")
     private String data;
 
 
@@ -32,12 +25,11 @@ public class Data {
         this.data = data;
     }
 
-    public Data() {
-    }
-
-    public Data(Long id, String data) {
-        super();
+    public DataBean(Long id, String data) {
         this.id = id;
         this.data = data;
+    }
+
+    public DataBean() {
     }
 }

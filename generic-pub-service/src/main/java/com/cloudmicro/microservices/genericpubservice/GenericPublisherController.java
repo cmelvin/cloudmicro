@@ -1,9 +1,8 @@
 package com.cloudmicro.microservices.genericpubservice;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -11,9 +10,11 @@ public class GenericPublisherController {
 
 
     @GetMapping("/generic-publish/{xmlData}")
-   public String publishXML(@PathVariable String xmlData){
+   public DataBean publishXML(@PathVariable String xmlData){
         System.out.println("DATA:"+xmlData);
-        return xmlData;
+        return new DataBean(10L,xmlData);
+
+
   /*      return "<?xml version=\"1.0\"?>\n" +
                 "<catalog>\n" +
                 "   <book id=\"bk101\">\n" +
