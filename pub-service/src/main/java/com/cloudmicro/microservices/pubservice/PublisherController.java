@@ -3,6 +3,8 @@ package com.cloudmicro.microservices.pubservice;
 import org.junit.jupiter.params.shadow.com.univocity.parsers.annotations.Headers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -22,24 +24,29 @@ public class PublisherController {
     @Autowired
     private DataRepository dataRepository;
 
-    @GetMapping("/publish/{xmlData}")
-    public DataBean publishXML(@PathVariable String xmlData){
+    @GetMapping("/publish")
+    public String publishXML(){
         Optional<Data> data=dataRepository.findById(1000L);
 
-        //String xmlData=data.get().getData().toString();
-        //xmlData="Hello World";
-        Map<String,String> uriVaraibles =new HashMap<>();
-        uriVaraibles.put("xmlData",xmlData);
-        String checkUrl="http://localhost:8000/generic-publish/{xmlData}";
-
-        ResponseEntity<DataBean> responseEntity=
-                new RestTemplate().getForEntity("http://localhost:8000/generic-publish/{xmlData}",
-                DataBean.class,uriVaraibles);
+        String xmlData=data.get().getData().toString();
+        String checkUrl="http://localhost:8000/generic-publish";
 
 
-        return new DataBean(responseEntity.getBody().getId(),responseEntity.getBody().getData().toString());
+        MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
+        Map map = new HashMap<String, String>();
+        map.put("Content-Type", "application/json");
 
-        //return new Limits(configuration.getMinimum(),configuration.getMaximum());
+        headers.setAll(map);
+
+        Map req_payload = new HashMap();
+        req_payload.put("xmlData", xmlData);
+
+        HttpEntity<?> request = new HttpEntity<>(req_payload, headers);
+        ResponseEntity<?> response = new RestTemplate().postForEntity(checkUrl, request, String.class);
+
+
+        return response.getBody().toString();
+
     }
 
     @ExceptionHandler
@@ -49,33 +56,3 @@ public class PublisherController {
 }
 
 
-   /* @GetMapping("/currency-converter/from/{from}/to/{to}/quantity/{quantity}")
-    public CurrencyConversionBean convertCurrency(@PathVariable String from, @PathVariable String to,
-                                                  @PathVariable BigDecimal quantity) {
-
-        // Feign - Problem 1
-        Map<String, String> uriVariables = new HashMap<>();
-        uriVariables.put("from", from);
-        uriVariables.put("to", to);
-
-        ResponseEntity<CurrencyConversionBean> responseEntity = new RestTemplate().getForEntity(
-                "http://localhost:8000/currency-exchange/from/{from}/to/{to}", CurrencyConversionBean.class,
-                uriVariables);
-
-        CurrencyConversionBean response = responseEntity.getBody();
-
-        return new CurrencyConversionBean(response.getId(), from, to, response.getConversionMultiple(), quantity,
-                quantity.multiply(response.getConversionMultiple()), response.getPort());
-    }
-
-    @GetMapping("/currency-converter-feign/from/{from}/to/{to}/quantity/{quantity}")
-    public CurrencyConversionBean convertCurrencyFeign(@PathVariable String from, @PathVariable String to,
-                                                       @PathVariable BigDecimal quantity) {
-
-        CurrencyConversionBean response = proxy.retrieveExchangeValue(from, to);
-
-        logger.info("{}", response);
-
-        return new CurrencyConversionBean(response.getId(), from, to, response.getConversionMultiple(), quantity,
-                quantity.multiply(response.getConversionMultiple()), response.getPort());
-    }*/
