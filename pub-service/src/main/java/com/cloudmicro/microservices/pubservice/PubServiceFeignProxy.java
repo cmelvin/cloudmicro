@@ -1,6 +1,7 @@
 package com.cloudmicro.microservices.pubservice;
 
 import feign.Headers;
+import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-@FeignClient(name="generic-pub-service", url = "localhost:8000")
+//@FeignClient(name="generic-pub-service", url = "localhost:8000")
+@FeignClient(name="generic-pub-service")
+@RibbonClient(name="generic-pub-service")
 public interface PubServiceFeignProxy {
 
     @PostMapping("/generic-publish")
