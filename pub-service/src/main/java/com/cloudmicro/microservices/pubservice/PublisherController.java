@@ -24,6 +24,9 @@ public class PublisherController {
     @Autowired
     private DataRepository dataRepository;
 
+    @Autowired
+    private PubServiceFeignProxy pubServiceFeignProxy;
+
     @GetMapping("/publish")
     public String publishXML(){
         Optional<Data> data=dataRepository.findById(1000L);
@@ -47,6 +50,19 @@ public class PublisherController {
 
         return response.getBody().toString();
 
+    }
+
+    @GetMapping("/publish-feign")
+    public String publishXMLFeign(){
+        Optional<Data> data=dataRepository.findById(1000L);
+        String xmlData=data.get().getData().toString();
+        String status=pubServiceFeignProxy.publishStatus(xmlData);
+        return status;
+    }
+
+    @GetMapping("/publish-limits")
+    public Limits publishLimits(){
+        return new Limits(configuration.getMinimum(),configuration.getMaximum());
     }
 
     @ExceptionHandler
