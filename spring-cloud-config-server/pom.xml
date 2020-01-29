@@ -17,6 +17,12 @@
 	<properties>
 		<java.version>13</java.version>
 		<spring-cloud.version>Hoxton.SR1</spring-cloud.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!--set this to your docker acct name-->
+		<docker.image.prefix>cmel777</docker.image.prefix>
+
+		<!--Set to name of project-->
+		<docker.image.name>spring-cloud-config-server</docker.image.name>
 	</properties>
 
 	<dependencies>
@@ -56,11 +62,50 @@
 		</dependencies>
 	</dependencyManagement>
 
+
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>io.fabric8</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.32.0</version>
+
+				<configuration>
+
+					<!--<dockerHost>http://127.0.0.1:2375</dockerHost>-->
+					<dockerHost>unix:///var/run/docker.sock</dockerHost>
+
+					<verbose>true</verbose>
+					<images>
+						<image>
+							<name>${docker.image.prefix}/${docker.image.name}</name>
+							<build>
+								<dockerFileDir>${project.basedir}/src/main/docker/</dockerFileDir>
+
+								<!--copies artficact to docker build dir in target-->
+								<assembly>
+									<descriptorRef>artifact</descriptorRef>
+								</assembly>
+								<tags>
+									<tag>latest</tag>
+									<tag>${project.version}</tag>
+								</tags>
+							</build>
+							<run>
+								<ports>
+									<port>8888:8888</port>
+								</ports>
+								<env>
+									<SPRING_CLOUD_CONFIG_SERVER_GIT_URI>https://github.com/cmelvin/git-localconfig-repo</SPRING_CLOUD_CONFIG_SERVER_GIT_URI>
+								</env>
+							</run>
+						</image>
+					</images>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

@@ -17,6 +17,12 @@
 	<properties>
 		<java.version>13</java.version>
 		<spring-cloud.version>Hoxton.SR1</spring-cloud.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<!--set this to your docker acct name-->
+		<docker.image.prefix>cmel777</docker.image.prefix>
+
+		<!--Set to name of project-->
+		<docker.image.name>pub-service</docker.image.name>
 	</properties>
 
 	<dependencies>
@@ -98,7 +104,83 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>io.fabric8</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.32.0</version>
+
+				<configuration>
+
+					<!--<dockerHost>http://127.0.0.1:2375</dockerHost>-->
+					<dockerHost>unix:///var/run/docker.sock</dockerHost>
+
+					<verbose>true</verbose>
+					<images>
+						<image>
+							<name>${docker.image.prefix}/${docker.image.name}</name>
+							<build>
+								<dockerFileDir>${project.basedir}/src/main/docker/</dockerFileDir>
+
+								<!--copies artficact to docker build dir in target-->
+								<assembly>
+									<descriptorRef>artifact</descriptorRef>
+								</assembly>
+								<tags>
+									<tag>latest</tag>
+									<tag>${project.version}</tag>
+								</tags>
+							</build>
+							<run>
+								<ports>
+									<port>8080:8080</port>
+								</ports>
+								<env>
+									<EUREKA_CLIENT_SERVICEURL_DEFAULTZONE>http://172.17.0.3:8761/eureka</EUREKA_CLIENT_SERVICEURL_DEFAULTZONE>
+								</env>
+
+
+								<!--								<links>
+                                                                    <link>myrabbitmq:rabbitmq</link>
+                                                                    <link>mysqldb:mysqldb</link>
+                                                                </links>
+                                                                <env>
+                                                                    <SPRING_DATASOURCE_URL>jdbc:mysql://mysqldb:3306/pageviewservice</SPRING_DATASOURCE_URL>
+                                                                    <SPRING_PROFILES_ACTIVE>mysql</SPRING_PROFILES_ACTIVE>
+                                                                    <SPRING_RABBITMQ_HOST>rabbitmq</SPRING_RABBITMQ_HOST>
+                                                                </env>-->
+
+
+								<!--	<ports>
+                                        <port>8081:8081</port>
+                                    </ports>
+                                        <link>myrabbitmq:rabbitmq</link>
+                                        <link>mysqldb:mysqldb</link>
+                                    </links>
+                                    <env>
+                                        <SPRING_DATASOURCE_URL>jdbc:mysql://mysqldb:3306/pageviewservice</SPRING_DATASOURCE_URL>
+                                        <SPRING_PROFILES_ACTIVE>mysql</SPRING_PROFILES_ACTIVE>
+                                        <SPRING_RABBITMQ_HOST>rdockerabbitmq</SPRING_RABBITMQ_HOST>
+                                    </env>
+                                    <dependsOn>
+                                        <container>myrabbitmq</container>
+                                        <container>mysql</container>
+                                    </dependsOn>
+                                    <wait>
+                                        <http>
+                                            <url>http://localhost:8081/health</url>
+                                            <method>GET</method>
+                                            <status>200..399</status>
+                                        </http>
+                                        <time>75000</time>
+                                    </wait>-->
+
+							</run>
+						</image>
+					</images>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
+
 
 </project>

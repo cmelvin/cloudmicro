@@ -16,4 +16,9 @@ public class GenericPublisherController {
        System.out.println("SERVER PORT:" + serverPort);
        return "Success"+":"+serverPort;
    }
+
+    @GetMapping("/generic-publish-get")
+    public String publishXML() {
+        return "Success@Get"+":"+serverPort;
+    }
 }
