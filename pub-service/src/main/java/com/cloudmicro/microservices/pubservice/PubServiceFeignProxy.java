@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-@FeignClient(name="generic-pub-service", url = "172.17.0.4:8000")
+@FeignClient(name="generic-pub-service", url = "172.17.0.5:8000")
 //@FeignClient(name="generic-pub-service")
 @RibbonClient(name="generic-pub-service")
 public interface PubServiceFeignProxy {

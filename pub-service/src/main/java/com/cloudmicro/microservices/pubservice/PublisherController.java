@@ -32,7 +32,7 @@ public class PublisherController {
         Optional<Data> data=dataRepository.findById(1000L);
 
         String xmlData=data.get().getData().toString();
-        String checkUrl="http://172.17.0.4:8000/generic-publish";
+        String checkUrl="http://172.17.0.5:8000/generic-publish";
 
 
         MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();

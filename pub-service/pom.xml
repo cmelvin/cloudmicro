@@ -132,48 +132,11 @@
 							</build>
 							<run>
 								<ports>
-									<port>8080:8080</port>
+									<port>7777:7777</port>
 								</ports>
 								<env>
 									<EUREKA_CLIENT_SERVICEURL_DEFAULTZONE>http://172.17.0.3:8761/eureka</EUREKA_CLIENT_SERVICEURL_DEFAULTZONE>
 								</env>
-
-
-								<!--								<links>
-                                                                    <link>myrabbitmq:rabbitmq</link>
-                                                                    <link>mysqldb:mysqldb</link>
-                                                                </links>
-                                                                <env>
-                                                                    <SPRING_DATASOURCE_URL>jdbc:mysql://mysqldb:3306/pageviewservice</SPRING_DATASOURCE_URL>
-                                                                    <SPRING_PROFILES_ACTIVE>mysql</SPRING_PROFILES_ACTIVE>
-                                                                    <SPRING_RABBITMQ_HOST>rabbitmq</SPRING_RABBITMQ_HOST>
-                                                                </env>-->
-
-
-								<!--	<ports>
-                                        <port>8081:8081</port>
-                                    </ports>
-                                        <link>myrabbitmq:rabbitmq</link>
-                                        <link>mysqldb:mysqldb</link>
-                                    </links>
-                                    <env>
-                                        <SPRING_DATASOURCE_URL>jdbc:mysql://mysqldb:3306/pageviewservice</SPRING_DATASOURCE_URL>
-                                        <SPRING_PROFILES_ACTIVE>mysql</SPRING_PROFILES_ACTIVE>
-                                        <SPRING_RABBITMQ_HOST>rdockerabbitmq</SPRING_RABBITMQ_HOST>
-                                    </env>
-                                    <dependsOn>
-                                        <container>myrabbitmq</container>
-                                        <container>mysql</container>
-                                    </dependsOn>
-                                    <wait>
-                                        <http>
-                                            <url>http://localhost:8081/health</url>
-                                            <method>GET</method>
-                                            <status>200..399</status>
-                                        </http>
-                                        <time>75000</time>
-                                    </wait>-->
-
 							</run>
 						</image>
 					</images>
