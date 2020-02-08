@@ -6,13 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="pub-service" />
+        <module name="spring-cloud-config-server" />
+        <module name="generic-pub-service" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="generic-pub-service" target="13" />
-      <module name="pub-service" target="13" />
-      <module name="spring-cloud-config-server" target="13" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">

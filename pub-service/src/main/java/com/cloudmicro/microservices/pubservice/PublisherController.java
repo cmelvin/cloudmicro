@@ -3,6 +3,7 @@ package com.cloudmicro.microservices.pubservice;
 import org.junit.jupiter.params.shadow.com.univocity.parsers.annotations.Headers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
+import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,12 @@ public class PublisherController {
 
     @Autowired
     private PubServiceFeignProxy pubServiceFeignProxy;
+
+
+    @GetMapping("/home")
+    public String home(Model model) {
+            return "forward:/index.html";
+        }
 
     @GetMapping("/publish")
     public String publishXML(){
