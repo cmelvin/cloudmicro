@@ -19,9 +19,7 @@
 		<spring-cloud.version>Hoxton.SR1</spring-cloud.version>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<!--set this to your docker acct name-->
 		<docker.image.prefix>cmel777</docker.image.prefix>
-		<!--Set to name of project-->
 		<docker.image.name>generic-pub-service</docker.image.name>
 	</properties>
 
