@@ -135,7 +135,7 @@
 									<port>7777:7777</port>
 								</ports>
 								<env>
-									<EUREKA_CLIENT_SERVICEURL_DEFAULTZONE>http://172.17.0.3:8761/eureka</EUREKA_CLIENT_SERVICEURL_DEFAULTZONE>
+									<EUREKA_CLIENT_SERVICEURL_DEFAULTZONE>http://172.17.0.4:8761/eureka</EUREKA_CLIENT_SERVICEURL_DEFAULTZONE>
 								</env>
 							</run>
 						</image>

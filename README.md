@@ -15,4 +15,7 @@ Start generic pub service feed netflix eureka naming server to pom  then get its
 Start pub service feed spring cloud config server to .properties, feed netflix eureka naming server to pom, feed generic pub service to Feign Proxy and Controller 
 
 
+RabbitMQ default port http://localhost:8080 which is mapped to rabbitmq internal 15672
+User name and password guest'
+
 Microservices hosted on AWS

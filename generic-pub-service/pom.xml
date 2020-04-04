@@ -123,7 +123,7 @@
 									<port>8000:8000</port>
 								</ports>
 								<env>
-									<EUREKA_CLIENT_SERVICEURL_DEFAULTZONE>http://172.17.0.3:8761/eureka</EUREKA_CLIENT_SERVICEURL_DEFAULTZONE>
+									<EUREKA_CLIENT_SERVICEURL_DEFAULTZONE>http://172.17.0.4:8761/eureka</EUREKA_CLIENT_SERVICEURL_DEFAULTZONE>
 									<SPRING_RABBITMQ_HOST>rabbitmq</SPRING_RABBITMQ_HOST>
 								</env>
 								<links>
