@@ -3,22 +3,20 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.2.2.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<groupId>com.cloudmicro.microservices</groupId>
+		<artifactId>cloudmicro-pub</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
+
 	<groupId>com.cloudmicro.microservices</groupId>
 	<artifactId>generic-pub-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>generic-pub-service</name>
 	<description>Demo project for Spring Boot</description>
+	<packaging>jar</packaging>
 
 	<properties>
-		<java.version>13</java.version>
-		<spring-cloud.version>Hoxton.SR1</spring-cloud.version>
-
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<docker.image.prefix>cmel777</docker.image.prefix>
 		<docker.image.name>generic-pub-service</docker.image.name>
 	</properties>
@@ -29,51 +27,12 @@
 			<artifactId>spring-boot-starter-amqp</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-config</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.junit.vintage</groupId>
-					<artifactId>junit-vintage-engine</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-    </dependencies>
+	</dependencies>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>${spring-cloud.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
+
 
 
 
@@ -123,7 +82,7 @@
 									<port>8000:8000</port>
 								</ports>
 								<env>
-									<EUREKA_CLIENT_SERVICEURL_DEFAULTZONE>http://172.17.0.4:8761/eureka</EUREKA_CLIENT_SERVICEURL_DEFAULTZONE>
+									<EUREKA_CLIENT_SERVICEURL_DEFAULTZONE>http://172.17.0.3:8761/eureka</EUREKA_CLIENT_SERVICEURL_DEFAULTZONE>
 									<SPRING_RABBITMQ_HOST>rabbitmq</SPRING_RABBITMQ_HOST>
 								</env>
 								<links>
@@ -158,5 +117,18 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<distributionManagement>
+		<repository>
+			<id>central</id>
+			<name>d8bfb9a28080-releases</name>
+			<url>http://34.229.42.34:8081/artifactory/libs-release</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<name>d8bfb9a28080-snapshots</name>
+			<url>http://34.229.42.34:8081/artifactory/libs-snapshot</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 </project>
