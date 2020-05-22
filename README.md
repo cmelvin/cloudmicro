@@ -1,4 +1,5 @@
 ****# cloudmicro
+docker run -d --hostname rabbitmq --name some-rabbit -p 15672:15672 -p 5671:5671 -p 5672:5672 -v /etc/rabbitmq/:/var/lib/rabbitmq rabbitmq:3-management
 
 mvn clean package docker:build for building containers
 mvn docker:start for starting containers
@@ -19,3 +20,5 @@ RabbitMQ default port http://localhost:8080 which is mapped to rabbitmq internal
 User name and password guest'
 
 Microservices hosted on AWS
+
+publisherqueue, publisherauditqueue are queue names

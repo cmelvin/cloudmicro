@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.cloudmicro.microservices</groupId>
@@ -9,15 +10,15 @@
     </parent>
 
     <groupId>com.cloudmicro.microservices</groupId>
-    <artifactId>generic-pub-service</artifactId>
+    <artifactId>generic-sub-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>generic-pub-service</name>
+    <name>generic-sub-service</name>
     <description>Demo project for Spring Boot</description>
     <packaging>jar</packaging>
 
     <properties>
         <docker.image.prefix>cmel777</docker.image.prefix>
-        <docker.image.name>generic-pub-service</docker.image.name>
+        <docker.image.name>generic-sub-service</docker.image.name>
     </properties>
 
     <dependencies>
@@ -29,12 +30,30 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-amqp</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-integration</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-stream-rabbit</artifactId>
         </dependency>
     </dependencies>
+
+
+
 
 
     <build>
@@ -80,27 +99,26 @@
                             </build>
                             <run>
                                 <ports>
-                                    <port>8000:8000</port>
+                                    <port>9000:9000</port>
                                 </ports>
                                 <env>
                                     <EUREKA_CLIENT_SERVICEURL_DEFAULTZONE>http://172.17.0.3:8761/eureka</EUREKA_CLIENT_SERVICEURL_DEFAULTZONE>
-                                    <SPRING_RABBITMQ_HOST>rabbitmq</SPRING_RABBITMQ_HOST>
-                                    <RABBITMQ_DEFAULT_USER>guest</RABBITMQ_DEFAULT_USER>
-                                    <RABBITMQ_DEFAULT_PASS>guest</RABBITMQ_DEFAULT_PASS>
+                                    <SPRING_RABBITMQ_HOST>172.17.0.4</SPRING_RABBITMQ_HOST>
+                                    <SPRING_RABBITMQ_PORT>5672</SPRING_RABBITMQ_PORT>
                                 </env>
-                                <links>
-                                    <link>myrabbitmq:rabbitmq</link>
-                                </links>
-                                <dependsOn>
+                           <!--     <links>
+                                    <link>myrabbitmq:myrabbitmq</link>
+                                </links>-->
+                                <!--<dependsOn>
                                     <container>myrabbitmq</container>
-                                </dependsOn>
+                                </dependsOn>-->
                                 <wait>
                                     <time>10000</time>
                                 </wait>
                             </run>
                         </image>
                         <!--rabbit container-->
-                        <image>
+                        <!--<image>
                             <name>rabbitmq:3-management</name>
                             <alias>myrabbitmq</alias>
                             <run>
@@ -109,16 +127,12 @@
                                     <port>5671:5671</port>
                                     <port>5672:5672</port>
                                 </ports>
-             <!--                   <volumes>
-                                    <bind>/etc/rabbitmq/:/var/lib/rabbitmq</bind>
-                                </volumes>-->
-                                <!--wait for db to start-->
+                                &lt;!&ndash;wait for db to start&ndash;&gt;
                                 <wait>
                                     <time>10000</time>
                                 </wait>
                             </run>
-
-                        </image>
+                        </image>-->
                     </images>
                 </configuration>
             </plugin>

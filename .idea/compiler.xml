@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="pub-service" />
         <module name="spring-cloud-config-server" />
+        <module name="generic-sub-service" />
         <module name="generic-pub-service" />
       </profile>
     </annotationProcessing>
@@ -15,6 +16,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="generic-pub-service" options="-parameters" />
+      <module name="generic-sub-service" options="-parameters" />
       <module name="pub-service" options="-parameters" />
       <module name="spring-cloud-config-server" options="-parameters" />
     </option>

@@ -7,6 +7,7 @@
         <option value="$PROJECT_DIR$/pub-service/pom.xml" />
         <option value="$PROJECT_DIR$/generic-pub-service/pom.xml" />
         <option value="$PROJECT_DIR$/spring-cloud-config-server/pom.xml" />
+        <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
   </component>
